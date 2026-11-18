@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nocturne Notes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+        <aside class="sidebar">
+            <h1>Nocturne<span>.</span></h1>
+            <p class="subtitle">YOUR PERSONAL SPACE</p>
+
+            <button id="newNoteBtn">+ New Note</button>
+
+            <div class="sidebar-label">YOUR NOTES</div>
+            <div id="notesList"></div>
+        </aside>
+
+        <main class="editor">
+            <header>
+                <span>MY WORKSPACE</span>
+                <span id="saveStatus">All changes saved</span>
+            </header>
+
+            <div class="note-area">
+                <input
+                    type="text"
+                    id="noteTitle"
+                    placeholder="Untitled Note"
+                >
+
+                <textarea
+                    id="noteContent"
+                    placeholder="Start writing your thoughts..."
+                ></textarea>
+            </div>
+
+            <footer>
+                <span id="wordCount">0 words</span>
+                <button id="deleteNoteBtn">Delete note</button>
+            </footer>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
