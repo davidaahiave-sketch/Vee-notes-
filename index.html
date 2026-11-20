@@ -4,48 +4,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nocturne Notes</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="app">
-        <aside class="sidebar">
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
             <h1>Nocturne<span>.</span></h1>
-            <p class="subtitle">YOUR PERSONAL SPACE</p>
+            <p>YOUR PERSONAL SPACE</p>
+        </div>
 
-            <button id="newNoteBtn">+ New Note</button>
+        <button class="new-note-btn" id="newNoteBtn">
+            <span>+</span> New Note
+        </button>
 
-            <div class="sidebar-label">YOUR NOTES</div>
-            <div id="notesList"></div>
-        </aside>
+        <div class="search-box">
+            <span>⌕</span>
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search your notes..."
+            >
+        </div>
 
-        <main class="editor">
-            <header>
-                <span>MY WORKSPACE</span>
-                <span id="saveStatus">All changes saved</span>
-            </header>
+        <nav class="navigation">
 
-            <div class="note-area">
-                <input
-                    type="text"
-                    id="noteTitle"
-                    placeholder="Untitled Note"
-                >
+            <button class="nav-item active" data-view="all">
+                <span>▤</span> All Notes
+            </button>
 
-                <textarea
-                    id="noteContent"
-                    placeholder="Start writing your thoughts..."
-                ></textarea>
+            <button class="nav-item" data-view="pinned">
+                <span>✦</span> Pinned
+            </button>
+
+            <button class="nav-item" data-view="recent">
+                <span>◷</span> Recently Edited
+            </button>
+
+        </nav>
+
+        <div class="section-heading">
+            <span>FOLDERS</span>
+            <button id="addFolderBtn" title="Create folder">+</button>
+        </div>
+
+        <div id="folderList" class="folder-list"></div>
+
+        <div class="section-heading">
+            <span>CATEGORIES</span>
+            <button id="addCategoryBtn" title="Create category">+</button>
+        </div>
+
+        <div id="categoryList" class="category-list"></div>
+
+        <div class="sidebar-bottom">
+            <button id="settingsBtn" class="settings-btn">
+                ⚙ Settings & Themes
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button id="menuBtn" class="menu-btn" aria-label="Open menu">
+                ☰
+            </button>
+
+            <div class="page-heading">
+                <span>WORKSPACE</span>
+                <h2 id="viewTitle">All Notes</h2>
             </div>
 
-            <footer>
-                <span id="wordCount">0 words</span>
-                <button id="deleteNoteBtn">Delete note</button>
-            </footer>
-        </main>
+            <div class="topbar-actions">
+                <span id="saveStatus">Ready</span>
+            </div>
+
+        </header>
+
+
+        <section class="workspace">
+
+            <!-- NOTES PANEL -->
+            <section class="notes-panel">
+
+                <div class="notes-panel-header">
+                    <div>
+                        <h3>Your Notes</h3>
+                        <p id="notesCount">0 notes</p>
+                    </div>
+
+                    <button id="panelNewNoteBtn" class="add-note-icon"
+                        title="Create a new note">+</button>
+                </div>
+
+                <div id="notesList" class="notes-list"></div>
+
+                <div id="emptyNotes" class="empty-state">
+                    <div class="empty-icon">✎</div>
+                    <h3>No notes yet</h3>
+                    <p>Create your first note and start writing.</p>
+                    <button id="emptyNewNoteBtn">+ Create a note</button>
+                </div>
+
+            </section>
+
+
+            <!-- NOTE EDITOR -->
+            <section class="editor-panel" id="editorPanel">
+
+                <div id="editorEmpty" class="editor-empty">
+                    <div class="empty-icon">✧</div>
+                    <h2>Your thoughts deserve space.</h2>
+                    <p>Select a note or create a new one to begin.</p>
+                    <button id="startWritingBtn">+ Start writing</button>
+                </div>
+
+                <div id="editorContent" class="editor-content" hidden>
+
+                    <div class="editor-toolbar">
+
+                        <div class="editor-date">
+                            <span>LAST EDITED</span>
+                            <span id="lastEdited">Just now</span>
+                        </div>
+
+                        <div class="editor-actions">
+                            <button id="pinNoteBtn" title="Pin note">☆</button>
+                            <button id="saveNoteBtn" class="save-btn">
+                                Save Note
+                            </button>
+                            <button id="deleteNoteBtn" class="delete-btn">
+                                Delete
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="note-metadata">
+
+                        <select id="noteFolder" aria-label="Select folder">
+                            <option value="">No folder</option>
+                        </select>
+
+                        <select id="noteCategory" aria-label="Select category">
+                            <option value="">No category</option>
+                        </select>
+
+                    </div>
+
+                    <input
+                        type="text"
+                        id="noteTitle"
+                        placeholder="Give your note a title..."
+                        maxlength="150"
+                    >
+
+                    <textarea
+                        id="noteContent"
+                        placeholder="Start writing your thoughts..."
+                    ></textarea>
+
+                    <footer class="editor-footer">
+                        <span id="wordCount">0 words</span>
+                        <span id="characterCount">0 characters</span>
+                    </footer>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- SETTINGS MODAL -->
+<div id="settingsModal" class="modal" hidden>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Appearance & Settings</h2>
+            <button id="closeSettingsBtn">×</button>
+        </div>
+
+        <p class="settings-description">
+            Make Nocturne feel like yours.
+        </p>
+
+        <h3>Choose your theme</h3>
+
+        <div id="themeOptions" class="theme-options">
+
+            <button class="theme-option" data-theme="dark">
+                <span class="theme-preview dark-preview"></span>
+                Dark Green
+            </button>
+
+            <button class="theme-option" data-theme="light">
+                <span class="theme-preview light-preview"></span>
+                Light
+            </button>
+
+            <button class="theme-option" data-theme="midnight">
+                <span class="theme-preview midnight-preview"></span>
+                Midnight
+            </button>
+
+            <button class="theme-option" data-theme="lavender">
+                <span class="theme-preview lavender-preview"></span>
+                Lavender
+            </button>
+
+        </div>
+
+        <p class="settings-note">
+            Your theme preference will be remembered on this device.
+        </p>
+
     </div>
 
-    <script src="script.js"></script>
+</div>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>
